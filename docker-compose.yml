@@ -1,0 +1,68 @@
+version: '3.2'
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - '2023:27017'
+    container_name: 'mongodb-helpdesk'
+    command: mongod
+    environment:
+      # provide your credentials here
+      - MONGO_INITDB_ROOT_USERNAME=helpdesk
+      - MONGO_INITDB_ROOT_PASSWORD=Ab@123465
+    volumes:
+      - /media/NewHDD/helpdesk/mongo-volume:/data/db
+    networks:
+      - helpdesk
+    restart: always
+  rabbitmq:
+    image: rabbitmq:3.8.9-management
+    volumes:
+      - /media/NewHDD/helpdesk/.docker/rabbitmq/etc/:/var/run/rabbitmq/
+      - /media/NewHDD/helpdesk/.docker/rabbitmq/data/:/var/lib/rabbitmq/
+      - /media/NewHDD/helpdesk/.docker/rabbitmq/logs/:/var/log/rabbitmq/
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      # provide your credentials here
+      - RABBITMQ_DEFAULT_PASS=Ab@123465
+      - RABBITMQ_DEFAULT_USER=helpdesk
+    networks:
+      - helpdesk
+    restart: always
+  # workerhistory:
+    # image: workerhistory:latest
+    # environment:
+      # PORT: "3000"
+      # RABBIT_HOST: "rabbitmq"
+      # RABBIT_PORT: "5672"
+      # RABBIT_PASS: "Ab@123465"
+      # RABBIT_USER: "helpdesk"
+      # QUEUE_NAME: "helpdesk:sync-data"
+      # EXCHANGE: "device"
+      # DB: 'helpdesk_mail'
+      # DB_SERVERS: 'mongodb:27017'
+      # DB_USER: 'helpdesk'
+      # DB_PASS: 'Ab@123465'
+      # #  BASE_PATH: '/backend'
+    # restart: always
+    # volumes:
+      # - /media/NewHDD/uploadFolder:/vvcImg
+    # networks:
+      # - helpdesk   
+  postgres:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Ab@123465
+    ports:
+      - '5432:5432'
+    volumes: 
+      - /media/NewHDD/helpdesk/postgresql-volume:/data/db
+    networks:
+      - helpdesk 
+networks:
+  helpdesk:
+    driver: bridge
