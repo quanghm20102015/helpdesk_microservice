@@ -1,5 +1,15 @@
 version: '3.2'
 services:
+  helpdesksystem_api:
+    image: ${DOCKER_REGISTRY-}helpdesksystem
+    build:
+      context: .
+      dockerfile: ./HelpDeskSystem/Dockerfile
+    ports:
+      - '8001:80'
+    networks:
+      - helpdesk
+    restart: always
   mongodb:
     image: mongo:latest
     ports:
