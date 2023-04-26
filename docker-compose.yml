@@ -4,7 +4,7 @@ services:
     image: ${DOCKER_REGISTRY-}helpdesksystem
     build:
       context: .
-      dockerfile: ./HelpDeskSystem/Dockerfile
+      dockerfile: helpdesk_api/HelpDeskSystem/Dockerfile
     ports:
       - '8001:80'
     networks:
