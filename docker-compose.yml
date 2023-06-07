@@ -1,41 +1,41 @@
 version: '3.2'
 services:
-  helpdesksystem_api:
-    image: ${DOCKER_REGISTRY-}helpdesksystem
-    build:
-      context: .
-      dockerfile: HelpDeskSystem/Dockerfile
-    ports:
-      - '8001:80'
-    volumes:
-      - /media/NewHDD/helpdesk/api:/vvcImg
-    networks:
-      - helpdesk
-    restart: always
-  helpdesksystem_web:
-    image: helpdesksystemweb:latest
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    ports:
-      - '8002:80'
-    networks:
-      - helpdesk
-  mongodb:
-    image: mongo:latest
-    ports:
-      - '2023:27017'
-    container_name: 'mongodb-helpdesk'
-    command: mongod
-    environment:
-      # provide your credentials here
-      - MONGO_INITDB_ROOT_USERNAME=helpdesk
-      - MONGO_INITDB_ROOT_PASSWORD=Ab@123465
-    volumes:
-      - /media/NewHDD/helpdesk/mongo-volume:/data/db
-    networks:
-      - helpdesk
-    restart: always
+  # helpdesksystem_api:
+  #   image: ${DOCKER_REGISTRY-}helpdesksystem
+  #   build:
+  #     context: .
+  #     dockerfile: HelpDeskSystem/Dockerfile
+  #   ports:
+  #     - '8001:80'
+  #   volumes:
+  #     - /media/NewHDD/helpdesk/api:/vvcImg
+  #   networks:
+  #     - helpdesk
+  #   restart: always
+  # helpdesksystem_web:
+  #   image: helpdesksystemweb:latest
+  #   build:
+  #     context: .
+  #     dockerfile: ./Dockerfile
+  #   ports:
+  #     - '8002:80'
+  #   networks:
+  #     - helpdesk
+  # mongodb:
+  #   image: mongo:latest
+  #   ports:
+  #     - '2023:27017'
+  #   container_name: 'mongodb-helpdesk'
+  #   command: mongod
+  #   environment:
+  #     # provide your credentials here
+  #     - MONGO_INITDB_ROOT_USERNAME=helpdesk
+  #     - MONGO_INITDB_ROOT_PASSWORD=Ab@123465
+  #   volumes:
+  #     - /media/NewHDD/helpdesk/mongo-volume:/data/db
+  #   networks:
+  #     - helpdesk
+  #   restart: always
   rabbitmq:
     image: rabbitmq:3.8.9-management
     volumes:
